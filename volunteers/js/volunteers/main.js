@@ -67,7 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
   select();
 
 
-
   // function headerMenu() {
 
   //   const dropDown = document.querySelectorAll('.nav__item');
