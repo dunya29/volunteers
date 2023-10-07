@@ -1,21 +1,4 @@
 
-function hero() {
-  const hero = document.querySelector('.hero');
-
-  if (hero) {
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.to(hero, {
-      scrollTrigger: {
-        trigger: hero,
-        start: '1800 bottom',
-        scrub: true,
-      },
-      opacity: 0,
-    })
-  }
-}
-
-hero();
 
 // function swiperThumb() {
 //     const swiperThumb = new Swiper(".swiper--topical-thumb", {

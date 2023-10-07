@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     btn.setAttribute('data-value', value);
                     selectList.classList.remove(CLASS_ACTIVE);
 
-                    document.getElementById('select-service').value = selectItem;
+                    document.getElementById('select-service')?.value = selectItem;
                 }
             });
         });
@@ -114,9 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }
 
-
     function menu() {
-
         const windowEl = window;
         const documentEl = document;
         const htmlEl = document.documentElement;
@@ -188,7 +186,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     menu();
 
-
     // function headerMenu() {
 
     //     const dropDown = document.querySelectorAll('.nav__item');
@@ -213,9 +210,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // };
 
     // headerMenu();
-
-
-
 
     function footerDropDwon() {
 
@@ -268,7 +262,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     //  Валидация и отправка формы
-    /*
     const formSubmission = () => {
       const form = document.querySelector(".js-form");
       const pristine = new Pristine(form);
@@ -284,20 +277,25 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     formSubmission();
-  */
 
-
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.to('.hero', {
+    
+function hero() {
+    const hero = document.querySelector('.hero');
+  
+    if (hero) {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.to(hero, {
         scrollTrigger: {
-            trigger: '.hero',
-            start: '1800 bottom',
-            scrub: true,
+          trigger: hero,
+          start: '1800 bottom',
+          scrub: true,
         },
         opacity: 0,
-    })
-
-
+      })
+    }
+  }
+  
+  hero();
     const swiperThumb = new Swiper(".swiper--topical-thumb", {
         slidesPerView: 'auto',
         freeMode: false,
@@ -331,7 +329,6 @@ document.addEventListener("DOMContentLoaded", () => {
             },
         },
     });
-
 
     const showPopupBtns = document.querySelectorAll('.js-show-popup');
     const popups = document.querySelectorAll('.js-popup');
@@ -431,19 +428,45 @@ document.addEventListener("DOMContentLoaded", () => {
     function searchBox() {
         const searchBtn = document.querySelector('.btn-search');
         const search = document.querySelector('.header__search');
-
-        searchBtn?.addEventListener('click', () => {
+    
+        if (search) {
+          searchBtn.addEventListener('click', () => {
             search.classList.toggle('active');
             searchBtn.classList.toggle('active');
-        })
-
-        document.addEventListener('click', (e) => {
+          })
+    
+          document.addEventListener('click', (e) => {
             if (!e.target.classList.contains('header__search') && !e.target.closest('.header__search') && !e.target.classList.contains('btn-search')) {
-                search.classList.remove('active');
-                searchBtn?.classList.remove('active');
+              search.classList.remove('active');
+              searchBtn.classList.remove('active');
             }
-        });
-    }
+          });
+        }
+      }
+    
+     searchBox();
+     const accordions = document.querySelectorAll('.accordion'); //находим все аккардионы
 
-    // searchBox();
+     accordions.forEach(el => {
+       el.addEventListener('click', (e) => {
+         const self = e.currentTarget;
+         const control = self.querySelector('.accordion__control'); //
+         const content = self.querySelector('.accordion__content'); //то что будем открывать
+   
+         self.classList.toggle('open');
+   
+   
+         // если открыт аккордеон
+         if (self.classList.contains('open')) {
+           control.setAttribute('aria-expanded', true);
+           content.setAttribute('aria-hidden', false);
+           content.style.maxHeight = content.scrollHeight + 'px';
+           console.log('test')
+         } else {
+           control.setAttribute('aria-expanded', false);
+           content.setAttribute('aria-hidden', true);
+           content.style.maxHeight = null;
+         }
+       });
+     });
 });

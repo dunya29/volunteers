@@ -14,8 +14,6 @@ const experienceSlider = new Swiper(swiperExperince, {
       },
   });
 
-
-
 const swiperHistory = document?.querySelector('.swiper--history');
 
 const historySlider = new Swiper(swiperHistory, {
