@@ -53,8 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     btn.innerHTML = content;
                     btn.setAttribute('data-value', value);
                     selectList.classList.remove(CLASS_ACTIVE);
-
-                    document.getElementById('select-service')?.value = selectItem;
+                    if (document.getElementById('select-service')) document.getElementById('select-service').value = selectItem;
                 }
             });
         });
@@ -264,16 +263,18 @@ document.addEventListener("DOMContentLoaded", () => {
     //  Валидация и отправка формы
     const formSubmission = () => {
       const form = document.querySelector(".js-form");
-      const pristine = new Pristine(form);
-
-      form.addEventListener("submit", (evt) => {
-        evt.preventDefault();
-        const valid = pristine.validate();
-        if (valid == true) {
-          evt.target.submit();
-          form.reset();
-        }
-      });
+      
+      if (form) {
+        const pristine = new Pristine(form);
+        form.addEventListener("submit", (evt) => {
+            evt.preventDefault();
+            const valid = pristine.validate();
+            if (valid == true) {
+              evt.target.submit();
+              form.reset();
+            }
+          });
+      }
     };
 
     formSubmission();
